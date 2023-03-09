@@ -14,14 +14,23 @@ Utilice el archivo `data.csv` para resolver las preguntas.
 
 
 def pregunta_01():
+    
+    
+    with open('data.csv', 'r') as f:
+        sum_col2 = 0
+        for row in f:
+            row = row.split("\t")
+            sum_col2 = sum_col2 + float(row[1]) 
+        
+
     """
     Retorne la suma de la segunda columna.
 
     Rta/
-    214
+    214 
 
     """
-    return
+    return sum_col2
 
 
 def pregunta_02():
