@@ -11,7 +11,7 @@ Utilice el archivo `data.csv` para resolver las preguntas.
 
 
 """
-
+#La funcion pregunta_01 la suma de la segunda columna.
 
 def pregunta_01():
     
@@ -21,15 +21,8 @@ def pregunta_01():
         for row in f:
             row = row.split("\t")
             sum_col2 = sum_col2 + float(row[1]) 
-        
-
-    """
-    Retorne la suma de la segunda columna.
-
-    Rta/
-    214 
-
-    """
+            
+            
     return sum_col2
 
 
