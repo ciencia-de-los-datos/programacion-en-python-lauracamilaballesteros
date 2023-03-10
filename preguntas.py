@@ -11,6 +11,9 @@ Utilice el archivo `data.csv` para resolver las preguntas.
 
 
 """
+
+
+
 #La funcion pregunta_01 la suma de la segunda columna.
 
 def pregunta_01():
@@ -26,7 +29,10 @@ def pregunta_01():
     return sum_col2
 
 
+
 def pregunta_02():
+
+
     """
     Retorne la cantidad de registros por cada letra de la primera columna como la lista
     de tuplas (letra, cantidad), ordendas alfabéticamente.
@@ -41,7 +47,24 @@ def pregunta_02():
     ]
 
     """
-    return
+    
+ 
+    with open('data.csv', 'r') as f:
+        
+        
+    
+        f = [x.replace("\n", "") for x in f ]
+        f = [y.split("\t") for y in f ]
+            
+        
+        row_0 = [t[0][0] for t in f]
+        result = [(letter, row_0.count(letter)) for letter in sorted(set(row_0))]
+        
+        
+        
+
+    
+    return result
 
 
 def pregunta_03():
