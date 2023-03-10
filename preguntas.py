@@ -167,7 +167,38 @@ def pregunta_05():
     ]
 
     """
-    return
+    with open('data.csv', 'r') as f:
+
+
+        f = [x.replace("\n", "") for x in f ]
+        f = [y.split("\t") for y in f ]
+
+        #Extracción de los valores de letras y numeros y construcción de una lista con letras y numeros
+        letters = [t[0][0] for t in f]
+        values = [int(t[1][0]) for t in f]
+        lista = list(zip(letters, values))
+
+        maximos_minimos = {}
+
+        #Construcción del diccionario
+        for letra, valor in lista:
+            if letra not in maximos_minimos:
+                maximos_minimos[letra] = {"maximo": valor, "minimo": valor}
+            else:
+                if valor > maximos_minimos[letra]["maximo"]:
+                    maximos_minimos[letra]["maximo"] = valor
+                if valor < maximos_minimos[letra]["minimo"]:
+                    maximos_minimos[letra]["minimo"] = valor
+
+        result = [(letra, maximos_minimos[letra]["maximo"], maximos_minimos[letra]["minimo"]) for letra in maximos_minimos]
+        result = sorted(result, key=lambda result: result[0])
+
+        
+        return result
+
+    
+    
+   
 
 
 def pregunta_06():
