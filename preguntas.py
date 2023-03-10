@@ -93,7 +93,7 @@ def pregunta_03():
         f = [y.split("\t") for y in f ]
 
 
-
+        # Extrae los valores de las letras y de numeros 
         letters = [t[0][0] for t in f]
         values = [int(t[1]) for t in f]
 
@@ -107,7 +107,7 @@ def pregunta_03():
             else:
                 sum_letters[letter] = value
 
-
+        #Ordena los valores de las letras en forma ascendente y se vuelve una lista de tuplas
         result = sorted([(letter, sum) for letter, sum in sum_letters.items()])
         
     return result
@@ -135,7 +135,21 @@ def pregunta_04():
     ]
 
     """
-    return
+    
+    with open('data.csv', 'r') as f:
+        
+        f = [x.replace("\n", "") for x in f ]
+        f = [y.split("\t") for y in f ]
+    
+    
+
+        fecha_mes = [t[2].split("-")[1] for t in f]
+        fecha_mes
+
+        result = [(mes, fecha_mes.count(mes)) for mes in sorted(set(fecha_mes))]
+
+    return result
+    
 
 
 def pregunta_05():
