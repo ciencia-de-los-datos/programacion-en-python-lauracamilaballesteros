@@ -56,8 +56,9 @@ def pregunta_02():
         f = [x.replace("\n", "") for x in f ]
         f = [y.split("\t") for y in f ]
             
-        
+        #Extrae el primer dato de la columna
         row_0 = [t[0][0] for t in f]
+        #Crea una lista de tuplas con la letra y la cuenta de la letra
         result = [(letter, row_0.count(letter)) for letter in sorted(set(row_0))]
         
         
@@ -82,7 +83,34 @@ def pregunta_03():
     ]
 
     """
-    return
+    
+     
+    with open('data.csv', 'r') as f:
+        
+        
+    
+        f = [x.replace("\n", "") for x in f ]
+        f = [y.split("\t") for y in f ]
+
+
+
+        letters = [t[0][0] for t in f]
+        values = [int(t[1]) for t in f]
+
+
+        sum_letters = {}
+
+        #Itera los valores de letras y valores al tiempo
+        for letter, value in zip(letters, values):
+            if letter in sum_letters:
+                sum_letters[letter] += value
+            else:
+                sum_letters[letter] = value
+
+
+        result = sorted([(letter, sum) for letter, sum in sum_letters.items()])
+        
+    return result
 
 
 def pregunta_04():
