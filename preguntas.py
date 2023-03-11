@@ -330,6 +330,8 @@ def pregunta_09():
         f = [x.replace("\n", "") for x in f ]
         f = [y.split("\t") for y in f ]
 
+        #Se extrae los valores de la columna 5 y se ponen como llave y valor del
+        #diccionario dict_letters_values
         for row in f:
             col5_dict = row[4]
             for key_value in col5_dict.split(","):
@@ -367,7 +369,22 @@ def pregunta_10():
 
 
     """
-    return
+    with open('data.csv', 'r') as f:
+        f = [x.replace("\n", "") for x in f ]
+        f = [y.split("\t") for y in f ]
+
+        #Extrae el primer dato de la columna
+        column_0 = [t[0] for t in f]
+
+        column_4 =[len(t[3].split(',')) for t in f]
+
+
+        column_5 =[len((t[4]).split(',')) for t in f]
+        column_5
+
+        result = list(zip(column_0,column_4, column_5))
+        
+    return result
 
 
 def pregunta_11():
