@@ -375,13 +375,12 @@ def pregunta_10():
 
         #Extrae el primer dato de la columna
         column_0 = [t[0] for t in f]
-
+        #Extrae el cuarto dato de la columna
         column_4 =[len(t[3].split(',')) for t in f]
-
-
+        #Extrae el quinto dato de la columna
         column_5 =[len((t[4]).split(',')) for t in f]
-        column_5
-
+        
+        #Se organiza el formato como lista de tuplas
         result = list(zip(column_0,column_4, column_5))
         
     return result
@@ -405,7 +404,33 @@ def pregunta_11():
 
 
     """
-    return
+    with open('data.csv', 'r') as f:
+        
+        f = [x.replace("\n", "") for x in f ]
+        f = [y.split("\t") for y in f ]
+
+        column_2 = [int(t[1]) for t in f]
+        column_4 = [t[3] for t in f]
+
+        result_dict = {}
+
+        for i in range(len(column_2)):
+            keys = column_4[i].split(",")
+            for key in keys:
+                if key in result_dict:
+                    result_dict[key] += column_2[i]
+                else:
+                    result_dict[key] = column_2[i]
+
+        sorted_dict = dict(sorted(result_dict.items()))
+
+        formatted_dict = {}
+        for key, value in sorted_dict.items():
+            formatted_dict[key] = value
+            
+            
+        return formatted_dict
+   
 
 
 def pregunta_12():
@@ -424,22 +449,27 @@ def pregunta_12():
 
     """
     with open('data.csv', 'r') as f:
-        dict_letters_values = {}
-        f = [x.replace("\n", "") for x in f ]
-        f = [y.split("\t") for y in f ]
 
-        for row in f:
-            col5_dict = row[4]
-            for key_value in col5_dict.split(","):
-                key, value = key_value.split(":")
-                value = int(value)
-                if key in dict_letters_values:
-                    dict_letters_values[key].append(value)
-                else:
-                    dict_letters_values[key] = [value]
+        #Crear un diccionario para almacenar las sumas de la columna 5 por cada valor de la columna 1
+        result = {}
+
+        # Iterar sobre cada línea del archivo
+        for line in f:
+            # Separar los elementos de la línea
+            elements = line.strip().split('\t')
+            # Obtener la columna 1 y la columna 5
+            col_1, col_5 = elements[0], elements[4]
+            # Procesar la cadena de la columna 5 y sumar los valores
+            total = 0
+            for pair in col_5.split(','):
+                total += int(pair.split(':')[1])
+            # Actualizar el diccionario de resultados
+            if col_1 in result:
+                result[col_1] += total
+            else:
+                result[col_1] = total
+
+        result = dict(sorted(result.items()))
 
 
-
-        result = { key:len(values) for key, values in sorted(dict_letters_values.items()) }
-        
-    return result
+        return result
