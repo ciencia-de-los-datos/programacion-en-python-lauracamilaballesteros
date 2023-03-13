@@ -276,7 +276,26 @@ def pregunta_07():
     ]
 
     """
-    return
+    with open('data.csv', 'r') as f:
+        f = [row_1.replace("\n", "") for row_1 in f ]
+        f = [row_1.split("\t") for row_1 in f ]
+
+
+
+
+        result = []
+        list_letter_number = [(int(t[1]), t[0]) for t in f]
+
+        for number_extract in sorted(set(t[0] for t in list_letter_number)):
+
+            letters = [t[1] for t in list_letter_number if t[0] == number_extract]
+            result.append((number_extract, letters))
+
+
+        result = sorted(result, key=lambda x: x[0])
+    
+
+    return result
 
 
 def pregunta_08():
@@ -301,7 +320,26 @@ def pregunta_08():
     ]
 
     """
-    return
+    
+    with open('data.csv', 'r') as f:
+        f = [row_1.replace("\n", "") for row_1 in f ]
+        f = [row_1.split("\t") for row_1 in f ]
+
+
+
+
+        result = []
+        list_letter_number = [(int(t[1]), t[0]) for t in f]
+
+        for number_extract in sorted(set(t[0] for t in list_letter_number)):
+
+            letters = sorted(set([t[1] for t in list_letter_number if t[0] == number_extract]))
+            result.append((number_extract, letters))
+
+
+        result = sorted(result, key=lambda x: x[0])
+
+    return result
 
 
 def pregunta_09():
