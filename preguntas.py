@@ -13,18 +13,26 @@ Utilice el archivo `data.csv` para resolver las preguntas.
 """
 
 
+
+#La funcion pregunta_01 la suma de la segunda columna.
+
 def pregunta_01():
-    """
-    Retorne la suma de la segunda columna.
+    
+    
+    with open('data.csv', 'r') as f:
+        sum_col2 = 0
+        for row in f:
+            row = row.split("\t")
+            sum_col2 = sum_col2 + float(row[1]) 
+            
+            
+    return sum_col2
 
-    Rta/
-    214
-
-    """
-    return
 
 
 def pregunta_02():
+
+
     """
     Retorne la cantidad de registros por cada letra de la primera columna como la lista
     de tuplas (letra, cantidad), ordendas alfabéticamente.
@@ -39,7 +47,25 @@ def pregunta_02():
     ]
 
     """
-    return
+    
+ 
+    with open('data.csv', 'r') as f:
+        
+        
+    
+        f = [x.replace("\n", "") for x in f ]
+        f = [y.split("\t") for y in f ]
+            
+        #Extrae el primer dato de la columna
+        row_0 = [t[0][0] for t in f]
+        #Crea una lista de tuplas con la letra y la cuenta de la letra
+        result = [(letter, row_0.count(letter)) for letter in sorted(set(row_0))]
+        
+        
+        
+
+    
+    return result
 
 
 def pregunta_03():
@@ -57,7 +83,34 @@ def pregunta_03():
     ]
 
     """
-    return
+    
+     
+    with open('data.csv', 'r') as f:
+        
+        
+    
+        f = [x.replace("\n", "") for x in f ]
+        f = [y.split("\t") for y in f ]
+
+
+        # Extrae los valores de las letras y de numeros 
+        letters = [t[0][0] for t in f]
+        values = [int(t[1]) for t in f]
+
+
+        sum_letters = {}
+
+        #Itera los valores de letras y valores al tiempo
+        for letter, value in zip(letters, values):
+            if letter in sum_letters:
+                sum_letters[letter] += value
+            else:
+                sum_letters[letter] = value
+
+        #Ordena los valores de las letras en forma ascendente y se vuelve una lista de tuplas
+        result = sorted([(letter, sum) for letter, sum in sum_letters.items()])
+        
+    return result
 
 
 def pregunta_04():
@@ -82,7 +135,21 @@ def pregunta_04():
     ]
 
     """
-    return
+    
+    with open('data.csv', 'r') as f:
+        
+        f = [x.replace("\n", "") for x in f ]
+        f = [y.split("\t") for y in f ]
+    
+    
+
+        fecha_mes = [t[2].split("-")[1] for t in f]
+        fecha_mes
+
+        result = [(mes, fecha_mes.count(mes)) for mes in sorted(set(fecha_mes))]
+
+    return result
+    
 
 
 def pregunta_05():
@@ -100,7 +167,39 @@ def pregunta_05():
     ]
 
     """
-    return
+    with open('data.csv', 'r') as f:
+
+
+        f = [x.replace("\n", "") for x in f ]
+        f = [y.split("\t") for y in f ]
+
+        #Extracción de los valores de letras y numeros y construcción de una lista con letras y numeros
+        letters = [t[0][0] for t in f]
+        values = [int(t[1][0]) for t in f]
+        lista = list(zip(letters, values))
+
+        maximos_minimos = {}
+
+        #Construcción del diccionario
+        for letra, valor in lista:
+            if letra not in maximos_minimos:
+                maximos_minimos[letra] = {"maximo": valor, "minimo": valor}
+            else:
+                #Reemplazo de valores máximos y mínimos en el diccionario
+                if valor > maximos_minimos[letra]["maximo"]:
+                    maximos_minimos[letra]["maximo"] = valor
+                if valor < maximos_minimos[letra]["minimo"]:
+                    maximos_minimos[letra]["minimo"] = valor
+
+        result = [(letra, maximos_minimos[letra]["maximo"], maximos_minimos[letra]["minimo"]) for letra in maximos_minimos]
+        result = sorted(result, key=lambda result: result[0])
+
+        
+        return result
+
+    
+    
+   
 
 
 def pregunta_06():
@@ -125,7 +224,35 @@ def pregunta_06():
     ]
 
     """
-    return
+    
+    with open('data.csv', 'r') as f:
+
+
+        f = [x.replace("\n", "") for x in f ]
+        f = [y.split("\t") for y in f ]
+        
+        min_max_dict = {}
+
+        # Extrae el elemento 5
+        for row in f:
+            col5_dict = row[4]
+            #Separa los elementos que estan separados por , y los vuelve lista
+            for key_value in col5_dict.split(","):
+                # Separa los elementos llave y valor separados por ,
+                key, value = key_value.split(":")
+                value = int(value)
+                if key in min_max_dict:
+
+                    min_max_dict[key].append(value)
+                else:
+                    min_max_dict[key] = [value]
+            min_max_dict
+            result = []
+            for key, values in sorted((min_max_dict.items())):
+                result.append((key, min(values), max(values)))
+
+        
+    return result
 
 
 def pregunta_07():
@@ -149,7 +276,26 @@ def pregunta_07():
     ]
 
     """
-    return
+    with open('data.csv', 'r') as f:
+        f = [row_1.replace("\n", "") for row_1 in f ]
+        f = [row_1.split("\t") for row_1 in f ]
+
+
+
+
+        result = []
+        list_letter_number = [(int(t[1]), t[0]) for t in f]
+
+        for number_extract in sorted(set(t[0] for t in list_letter_number)):
+
+            letters = [t[1] for t in list_letter_number if t[0] == number_extract]
+            result.append((number_extract, letters))
+
+
+        result = sorted(result, key=lambda x: x[0])
+    
+
+    return result
 
 
 def pregunta_08():
@@ -174,7 +320,26 @@ def pregunta_08():
     ]
 
     """
-    return
+    
+    with open('data.csv', 'r') as f:
+        f = [row_1.replace("\n", "") for row_1 in f ]
+        f = [row_1.split("\t") for row_1 in f ]
+
+
+
+
+        result = []
+        list_letter_number = [(int(t[1]), t[0]) for t in f]
+
+        for number_extract in sorted(set(t[0] for t in list_letter_number)):
+
+            letters = sorted(set([t[1] for t in list_letter_number if t[0] == number_extract]))
+            result.append((number_extract, letters))
+
+
+        result = sorted(result, key=lambda x: x[0])
+
+    return result
 
 
 def pregunta_09():
@@ -197,7 +362,31 @@ def pregunta_09():
     }
 
     """
-    return
+    
+    with open('data.csv', 'r') as f:
+        dict_letters_values = {}
+        f = [x.replace("\n", "") for x in f ]
+        f = [y.split("\t") for y in f ]
+
+        #Se extrae los valores de la columna 5 y se ponen como llave y valor del
+        #diccionario dict_letters_values
+        for row in f:
+            col5_dict = row[4]
+            for key_value in col5_dict.split(","):
+                key, value = key_value.split(":")
+                value = int(value)
+                if key in dict_letters_values:
+                    dict_letters_values[key].append(value)
+                else:
+                    dict_letters_values[key] = [value]
+                    
+
+
+
+        result = { key:len(values) for key, values in sorted(dict_letters_values.items()) }
+    
+    return result
+
 
 
 def pregunta_10():
@@ -218,7 +407,21 @@ def pregunta_10():
 
 
     """
-    return
+    with open('data.csv', 'r') as f:
+        f = [x.replace("\n", "") for x in f ]
+        f = [y.split("\t") for y in f ]
+
+        #Extrae el primer dato de la columna
+        column_0 = [t[0] for t in f]
+        #Extrae el cuarto dato de la columna
+        column_4 =[len(t[3].split(',')) for t in f]
+        #Extrae el quinto dato de la columna
+        column_5 =[len((t[4]).split(',')) for t in f]
+        
+        #Se organiza el formato como lista de tuplas
+        result = list(zip(column_0,column_4, column_5))
+        
+    return result
 
 
 def pregunta_11():
@@ -239,7 +442,33 @@ def pregunta_11():
 
 
     """
-    return
+    with open('data.csv', 'r') as f:
+        
+        f = [x.replace("\n", "") for x in f ]
+        f = [y.split("\t") for y in f ]
+
+        column_2 = [int(t[1]) for t in f]
+        column_4 = [t[3] for t in f]
+
+        result_dict = {}
+
+        for i in range(len(column_2)):
+            keys = column_4[i].split(",")
+            for key in keys:
+                if key in result_dict:
+                    result_dict[key] += column_2[i]
+                else:
+                    result_dict[key] = column_2[i]
+
+        sorted_dict = dict(sorted(result_dict.items()))
+
+        formatted_dict = {}
+        for key, value in sorted_dict.items():
+            formatted_dict[key] = value
+            
+            
+        return formatted_dict
+   
 
 
 def pregunta_12():
@@ -257,4 +486,28 @@ def pregunta_12():
     }
 
     """
-    return
+    with open('data.csv', 'r') as f:
+
+        #Crear un diccionario para almacenar las sumas de la columna 5 por cada valor de la columna 1
+        result = {}
+
+        # Iterar sobre cada línea del archivo
+        for line in f:
+            # Separar los elementos de la línea
+            elements = line.strip().split('\t')
+            # Obtener la columna 1 y la columna 5
+            col_1, col_5 = elements[0], elements[4]
+            # Procesar la cadena de la columna 5 y sumar los valores
+            total = 0
+            for pair in col_5.split(','):
+                total += int(pair.split(':')[1])
+            # Actualizar el diccionario de resultados
+            if col_1 in result:
+                result[col_1] += total
+            else:
+                result[col_1] = total
+
+        result = dict(sorted(result.items()))
+
+
+        return result
